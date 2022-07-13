@@ -110,7 +110,7 @@ async def add_bot_to_logger_group(chat_id):
     lol = bot_details.username
     addgvar("BOT_USERNAME", lol)
     try:
-        await legend(
+        await guardian(
             functions.messages.AddChatUserRequest(
                 chat_id=chat_id,
                 user_id=lol,
