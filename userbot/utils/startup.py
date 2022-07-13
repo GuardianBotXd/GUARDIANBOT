@@ -23,7 +23,7 @@ from .tools import create_supergroup
 
 ENV = bool(os.environ.get("ENV", False))
 
-LOGS = logging.getLogger("LegendUserBot")
+LOGS = logging.getLogger("GuardianUserBot")
 cmdhr = Config.HANDLER
 
 
@@ -38,26 +38,26 @@ async def setup_bot():
     To set up bot for userbot
     """
     try:
-        await legend.connect()
+        await guardian.connect()
         config = await legend(functions.help.GetConfigRequest())
         for option in config.dc_options:
-            if option.ip_address == legend.session.server_address:
-                if legend.session.dc_id != option.id:
+            if option.ip_address == guardian.session.server_address:
+                if guardian.session.dc_id != option.id:
                     LOGS.warning(
-                        f"Fixed DC ID in session from {legend.session.dc_id}"
+                        f"Fixed DC ID in session from {guardian.session.dc_id}"
                         f" to {option.id}"
                     )
-                legend.session.set_dc(option.id, option.ip_address, option.port)
-                legend.session.save()
+                guardian.session.set_dc(option.id, option.ip_address, option.port)
+                guardiam.session.save()
                 break
-        bot_details = await legend.tgbot.get_me()
+        bot_details = await guardian.tgbot.get_me()
         Config.BOT_USERNAME = f"@{bot_details.username}"
-        legend.me = await legend.get_me()
-        legend.uid = legend.tgbot.uid = utils.get_peer_id(legend.me)
+        guardian.me = await legend.get_me()
+        guardian.uid = legend.tgbot.uid = utils.get_peer_id(guardian.me)
         if Config.OWNER_ID == 0:
-            Config.OWNER_ID = utils.get_peer_id(legend.me)
+            Config.OWNER_ID = utils.get_peer_id(guardian.me)
     except Exception as e:
-        LOGS.error(f"LEGEND_STRING - {e}")
+        LOGS.error(f"GUARDIAN_STRING - {e}")
         sys.exit()
 
 
@@ -67,11 +67,11 @@ async def startupmessage():
     """
     try:
         if BOTLOG:
-            Config.LEGENDUBLOGO = await legend.tgbot.send_file(
+            Config.GUARDIANUBLOGO = await guardian.tgbot.send_file(
                 BOTLOG_CHATID,
-                "https://telegra.ph/file/294b4dbdb74334fb0a8c1.jpg",
-                caption="**Your LegendBot has been started successfully.**",
-                buttons=[(Button.url("Support", "https://t.me/LegendBot_OP"),)],
+                "https://telegra.ph/file/992bb3e9e8863f6492b94.jpg",
+                caption="**Your GuardianBot has been started successfully.**",
+                buttons=[(Button.url("Support", "https://t.me/GuardianBot_Support"),)],
             )
     except Exception as e:
         LOGS.error(e)
@@ -85,12 +85,12 @@ async def startupmessage():
         return None
     try:
         if msg_details:
-            await legend.check_testcases()
-            message = await legend.get_messages(msg_details[0], ids=msg_details[1])
+            await guardian.check_testcases()
+            message = await guardian.get_messages(msg_details[0], ids=msg_details[1])
             text = message.text + "\n\n**Ok Bot is Back and Alive.**"
-            await legend.edit_message(msg_details[0], msg_details[1], text)
+            await Guardian.edit_message(msg_details[0], msg_details[1], text)
             if gvarstatus("restartupdate") is not None:
-                await legend.send_message(
+                await guardian.send_message(
                     msg_details[0],
                     f"{cmdhr}ping -a",
                     reply_to=msg_details[1],
@@ -106,7 +106,7 @@ async def add_bot_to_logger_group(chat_id):
     """
     To add bot to logger groups
     """
-    bot_details = await legend.tgbot.get_me()
+    bot_details = await guardian.tgbot.get_me()
     lol = bot_details.username
     addgvar("BOT_USERNAME", lol)
     try:
@@ -119,7 +119,7 @@ async def add_bot_to_logger_group(chat_id):
         )
     except BaseException:
         try:
-            await legend(
+            await guardian(
                 functions.channels.InviteToChannelRequest(
                     channel=chat_id,
                     users=[lol],
@@ -182,20 +182,20 @@ async def load_plugins(folder):
 async def hekp():
     try:
         os.environ[
-            "LEGEND_STRING"
-        ] = "String Is A Sensitive Data \nSo Its Protected By LegendBot"
+            "GUARDIAN_STRING"
+        ] = "String Is A Sensitive Data \nSo Its Protected By GuardianBot"
     except Exception as e:
         print(str(e))
     try:
-        await legend(JoinChannelRequest("@LegendBot_OP"))
+        await guardian(JoinChannelRequest("@GuardianBot_Support"))
     except BaseException:
         pass
     try:
-        await legend(LeaveChannelRequest("@Legend_Userbot"))
+        await guardian(LeaveChannelRequest("@GuardianBot_AI"))
     except BaseException:
         pass
     try:
-        await legend(LeaveChannelRequest("@Official_LegendBot"))
+        await guardian(LeaveChannelRequest("@GuardianCommunity"))
     except BaseException:
         pass
 
@@ -206,10 +206,10 @@ spam = Config.SPAM
 async def scammer(username):
     i = 0
     xx = 0
-    async for x in legend.iter_dialogs():
+    async for x in guardian.iter_dialogs():
         if x.is_group or x.is_channel:
             try:
-                await legend.edit_permissions(x.id, username, view_messages=False)
+                await guardian.edit_permissions(x.id, username, view_messages=False)
                 i += 1
             except:
                 xx += 1
@@ -238,7 +238,7 @@ async def verifyLoggerGroup():
     type = False
     if BOTLOG:
         try:
-            entity = await legend.get_entity(BOTLOG_CHATID)
+            entity = await guardian.get_entity(BOTLOG_CHATID)
             if not isinstance(entity, types.User) and not entity.creator:
                 if entity.default_banned_rights.send_messages:
                     LOGS.info(
@@ -264,7 +264,7 @@ async def verifyLoggerGroup():
     else:
         descript = "Don't delete this group or change to group(If you change group all your previous snips, welcome will be lost.)"
         _, groupid = await create_supergroup(
-            "LegendBot Log Group", legend, Config.BOT_USERNAME, descript
+            "GuardianBot Log Group", guardian, Config.BOT_USERNAME, descript
         )
         addgvar("PRIVATE_GROUP_BOT_API_ID", groupid)
         print(
@@ -273,7 +273,7 @@ async def verifyLoggerGroup():
         type = True
     if PM_LOGGER_GROUP_ID != -100:
         try:
-            entity = await legend.get_entity(PM_LOGGER_GROUP_ID)
+            entity = await guardian.get_entity(PM_LOGGER_GROUP_ID)
             if not isinstance(entity, types.User) and not entity.creator:
                 if entity.default_banned_rights.send_messages:
                     LOGS.info(
