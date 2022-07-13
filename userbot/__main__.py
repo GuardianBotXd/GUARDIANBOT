@@ -17,7 +17,7 @@ from .utils import (
     verifyLoggerGroup,
 )
 
-LOGS = logging.getLogger("LegendUserBot")
+LOGS = logging.getLogger("GuadianUserBot")
 
 print(userbot.__copyright__)
 print("Licensed under the terms of the " + userbot.__license__)
@@ -43,9 +43,9 @@ async def startup_process():
     await spams()
     print("----------------")
     print("Starting Bot Mode!")
-    print("⚜ LegendBot Has Been Deployed Successfully ⚜")
-    print("OWNER - @LegendBoy_XD")
-    print("Group - @LegendBot_XD")
+    print("⚜ GuardianBot Has Been Deployed Successfully ⚜")
+    print("OWNER - @DinoGuardian")
+    print("Group - @DinoGuardian")
     print("----------------")
     await verifyLoggerGroup()
     await add_bot_to_logger_group(BOTLOG_CHATID)
@@ -55,13 +55,13 @@ async def startup_process():
     return
 
 
-legend.loop.run_until_complete(startup_process())
-legend.loop.create_task(hekp())
+guardian.loop.run_until_complete(startup_process())
+guardian.loop.create_task(hekp())
 
 if len(sys.argv) in (1, 3, 4):
     try:
-        legend.run_until_disconnected()
+        guardian.run_until_disconnected()
     except ConnectionError:
         pass
 else:
-    legend.disconnect()
+    guardian.disconnect()
