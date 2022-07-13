@@ -6,23 +6,23 @@ import heroku3
 
 from .Config import Config
 from .core.logger import logging
-from .core.session import legend
+from .core.session import guardian
 from .helpers.utils.utils import runasync
 from .sql_helper.globals import addgvar, delgvar, gvarstatus
 
-__version__ = "α • 2.1"
+__version__ = "α • 1.0"
 __license__ = "GNU Affero General Public License v3.0"
-__author__ = "LegendBot <https://github.com/ITS-LEGENDBOT/LEGENDBOT>"
-__copyright__ = f"LegendBot Copyright (C) 2020 - 2021  { __author__}"
+__author__ = "fuardianBot <https://github.com/GuardianBotXd/GUARDIANBOT>"
+__copyright__ = f"guardianBot Copyright (C) 2020 - 2021  { __author__}"
 
-legend.version = __version__
-legend.tgbot.version = __version__
-LOGS = logging.getLogger("LegendUserBot")
-bot = legend
+.version = __version__
+guardian.tgbot.version = __version__
+LOGS = logging.getLogger("GuardianUserBot")
+bot = guardian
 
 
 StartTime = time.time()
-legendversion = "α • 2.1"
+guardianversion = "α • 1.0"
 
 
 def close_connection(*_):
@@ -35,9 +35,9 @@ signal.signal(signal.SIGTERM, close_connection)
 
 
 if Config.UPSTREAM_REPO == "pro":
-    UPSTREAM_REPO_URL = "https://github.com/ITS-LEGENDBOT/LEGENDBOT"
+    UPSTREAM_REPO_URL = "https://github.com/GuardianBotXd/GUARDIANBOT"
 elif Config.UPSTREAM_REPO == "multi":
-    UPSTREAM_REPO_URL = "https://github.com/ITS-LEGENDBOT/LEGENDUSERBOT"
+    UPSTREAM_REPO_URL = "https://github.com/Guardian-COMMUNITY/GUARDIANUSERBOT"
 else:
     UPSTREAM_REPO_URL = Config.UPSTREAM_REPO
 
