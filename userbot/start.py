@@ -140,7 +140,7 @@ async def help(event):
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"shutdown")))
 async def rel(event):
     if event.query.user_id == bot.uid:
-        await event.answer("ShutDown Lêɠêɳ̃dẞø†...", cache_time=0, alert=True)
+        await event.answer("ShutDown GUARDIANBOT...", cache_time=0, alert=True)
         if BOTLOG:
             await event.client.send_message(
                 BOTLOG_CHATID, "#SHUTDOWN \n" "Bot shut down"
