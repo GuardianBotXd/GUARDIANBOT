@@ -39,7 +39,7 @@ async def setup_bot():
     """
     try:
         await guardian.connect()
-        config = await legend(functions.help.GetConfigRequest())
+        config = await guardian(functions.help.GetConfigRequest())
         for option in config.dc_options:
             if option.ip_address == guardian.session.server_address:
                 if guardian.session.dc_id != option.id:
