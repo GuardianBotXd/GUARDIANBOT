@@ -34,7 +34,7 @@ bot = guardian
 
 async def killer():
     GUARDIAN_USER = bot.me.first_name
-    DinoGuardian = bot.uid
+    bot.uid
     legd_mention = f"[{GUARDIAN_USER}](tg://user?id={DINOGUARDIAN})"
     name = f"{legd_mention}'s Assistant"
     description = (
