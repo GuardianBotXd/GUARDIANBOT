@@ -1,12 +1,12 @@
-# LEGENDBOT
-HERE IS ALL THE PLUGIN OF LEGENDBOT
+# GUARDIANBOT
+HERE IS ALL THE PLUGIN OF GUARDIANBOT
 
 ## Deploy 
-- Click Here :- [main repo](https://github.com/LEGEND-AI/LEGENDBOT)
+- Click Here :- [main repo](https://github.com/GUARDIAN-COMMUNITY/GUARDIANBOT)
 - Fork The Main Repo 
 - Go to Setting Of Repo 
-- Rename the Fork Repo Put Anything Example : LEGEND1BOT, HSKSBOT, LEGENDOFFBOT etc...
+- Rename the Fork Repo Put Anything Example : GUARDIANBOT, HSKSBOT, GUARDIANOFFBOT etc...
 - Now U Can Deploy This Bot
 
 ## Repl
-- Click Here - [REPL](https://replit.com/@KrishnaJaiswal1/LEGENDBOT#main.py)
+- Click Here - [REPL](replit.com/@ItzGrimXd/GUARDIANBOT?#main.py)
