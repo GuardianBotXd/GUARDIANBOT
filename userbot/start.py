@@ -164,7 +164,7 @@ async def res_ttart(event):
                 BOTLOG_CHATID, "# RESTART \n" "Bot Restarted"
             )
         try:
-            await legend.disconnect()
+            await guardian.disconnect()
         except CancelledError:
             pass
         except Exception as e:
