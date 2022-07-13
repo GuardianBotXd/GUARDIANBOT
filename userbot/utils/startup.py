@@ -53,7 +53,7 @@ async def setup_bot():
         bot_details = await guardian.tgbot.get_me()
         Config.BOT_USERNAME = f"@{bot_details.username}"
         guardian.me = await legend.get_me()
-        guardian.uid = legend.tgbot.uid = utils.get_peer_id(guardian.me)
+        guardian.uid = guardian.tgbot.uid = utils.get_peer_id(guardian.me)
         if Config.OWNER_ID == 0:
             Config.OWNER_ID = utils.get_peer_id(guardian.me)
     except Exception as e:
