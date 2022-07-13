@@ -1,7 +1,7 @@
-FROM LEGEND-AI/LEGENDBOT:slim-buster
+FROM GUARDIAN-COMMUNITY/LEGENDBOT:slim-buster
 
 #clonning repo 
-RUN git clone https://github.com/LEGEND-AI/LEGENDBOT.git /root/userbot
+RUN git clone https://github.com/GUARDIAN-COMMUNITY/LEGENDBOT.git /root/userbot
 #working directory 
 WORKDIR /root/userbot
 
