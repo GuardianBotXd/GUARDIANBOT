@@ -37,7 +37,7 @@ def load_module(shortname, plugin_path=None):
         checkplugins(path)
         spec = importlib.util.spec_from_file_location(name, path)
         mod = importlib.util.module_from_spec(spec)
-        mod.bot = legend
+        mod.bot = guardian
         mod.LOGS = LOGS
         mod.Config = Config
         mod._format = _format
