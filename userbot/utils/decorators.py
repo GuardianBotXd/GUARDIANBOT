@@ -10,7 +10,7 @@ from ..Config import Config
 from ..core.data import _sudousers_list, blacklist_chats_list
 from ..core.events import MessageEdited, NewMessage
 from ..core.logger import logging
-from ..core.session import legend
+from ..core.session import guardian
 from ..helpers.utils.format import paste_message
 from ..helpers.utils.utils import runcmd
 from ..sql_helper.globals import gvarstatus
@@ -37,10 +37,10 @@ def admin_cmd(pattern=None, command=None, **args):  # sourcery no-metrics
                 CMD_LIST.update({file_test: [cmd]})
         else:
             if len(Config.HANDLER) == 2:
-                legendreg = f"^{Config.HANDLER}"
+                guardianreg = f"^{Config.HANDLER}"
                 reg = Config.HANDLER[1]
             elif len(Config.HANDLER) == 1:
-                legendreg = f"^\\{Config.HANDLER}"
+                guardianreg = f"^\\{Config.HANDLER}"
                 reg = Config.HANDLER
             args["pattern"] = re.compile(legendreg + pattern)
             if command is not None:
@@ -94,7 +94,7 @@ def sudo_cmd(pattern=None, command=None, **args):  # sourcery no-metrics
             elif len(Config.SUDO_HANDLER) == 1:
                 legendreg = f"^\\{Config.SUDO_HANDLER}"
                 reg = Config.HANDLER
-            args["pattern"] = re.compile(legendreg + pattern)
+            args["pattern"] = re.compile(guardianreg + pattern)
             if command is not None:
                 cmd = reg + command
             else:
@@ -136,7 +136,7 @@ def errors_handler(func):
                 return
             date = (datetime.datetime.now()).strftime("%m/%d/%Y, %H:%M:%S")
             ftext = f"\nDisclaimer:\nThis file is pasted only here ONLY here,\
-                                  \nwe logged only fact of error and date,\nwe respect your privacy,\
+                                  \nwe logger only fact of error and date,\nwe respect your privacy,\
                                   \nyou may not report this error if you've\
                                   \nany confidential data here, no one will see your data\
                                   \n\n--------BEGIN USERBOT TRACEBACK LOG--------\
@@ -157,8 +157,8 @@ def errors_handler(func):
             result = output[0] + output[1]
             ftext += result
             pastelink = await paste_message(ftext)
-            text = "**LegendBot Error report**\n\n"
-            link = "[here](https://t.me/LegendBot_OP)"
+            text = "**GuardianBot Error report**\n\n"
+            link = "[here](https://t.me/GuardianBot_Support)"
             text += "If you wanna you can report it"
             text += f"Just forward this message {link}.\n"
             text += "Nothing is logged except the fact of error and date\n\n"
@@ -219,8 +219,8 @@ def register(**args):
 
     def decorator(func):
         if not disable_edited:
-            legend.add_event_handler(func, MessageEdited(**args))
-        legend.add_event_handler(func, NewMessage(**args))
+            guardian.add_event_handler(func, MessageEdited(**args))
+        guardian.add_event_handler(func, NewMessage(**args))
         try:
             LOAD_PLUG[file_test].append(func)
         except Exception:
@@ -276,8 +276,8 @@ def command(**args):
 
     def decorator(func):
         if allow_edited_updates:
-            legend.add_event_handler(func, MessageEdited(**args))
-        legend.add_event_handler(func, NewMessage(**args))
+            guardian.add_event_handler(func, MessageEdited(**args))
+        guardian.add_event_handler(func, NewMessage(**args))
         try:
             LOAD_PLUG[file_test].append(func)
         except BaseException:
