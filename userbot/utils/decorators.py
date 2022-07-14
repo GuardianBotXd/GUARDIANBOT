@@ -42,7 +42,7 @@ def admin_cmd(pattern=None, command=None, **args):  # sourcery no-metrics
             elif len(Config.HANDLER) == 1:
                 guardianreg = f"^\\{Config.HANDLER}"
                 reg = Config.HANDLER
-            args["pattern"] = re.compile(legendreg + pattern)
+            args["pattern"] = re.compile(guardianreg + pattern)
             if command is not None:
                 cmd = reg + command
             else:
