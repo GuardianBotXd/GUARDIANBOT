@@ -5,8 +5,8 @@ from sqlalchemy import Column, String, UnicodeText, distinct, func
 from . import BASE, SESSION
 
 
-class LegendGloballist(BASE):
-    __tablename__ = "legendglobal_list"
+class GuardianGloballist(BASE):
+    __tablename__ = "guardianglobal_list"
     keywoard = Column(UnicodeText, primary_key=True)
     group_id = Column(String, primary_key=True, nullable=False)
 
@@ -15,19 +15,19 @@ class LegendGloballist(BASE):
         self.group_id = str(group_id)
 
     def __repr__(self):
-        return "<Legend global values '%s' for %s>" % (self.group_id, self.keywoard)
+        return "<Guardian global values '%s' for %s>" % (self.group_id, self.keywoard)
 
     def __eq__(self, other):
         return bool(
-            isinstance(other, LegendGloballist)
+            isinstance(other, GuardianGloballist)
             and self.keywoard == other.keywoard
             and self.group_id == other.group_id
         )
 
 
-LegendGloballist.__table__.create(checkfirst=True)
+GuardianGloballist.__table__.create(checkfirst=True)
 
-LEGENDGLOBALLIST_INSERTION_LOCK = threading.RLock()
+GUARDIANGLOBALLIST_INSERTION_LOCK = threading.RLock()
 
 
 class GLOBALLIST_SQL:
@@ -39,16 +39,16 @@ GLOBALLIST_SQL_ = GLOBALLIST_SQL()
 
 
 def add_to_list(keywoard, group_id):
-    with LEGENDGLOBALLIST_INSERTION_LOCK:
-        broadcast_group = LegendGloballist(keywoard, str(group_id))
+    with GUARDIANGLOBALLIST_INSERTION_LOCK:
+        broadcast_group = GuardianGloballist(keywoard, str(group_id))
         SESSION.merge(broadcast_group)
         SESSION.commit()
         GLOBALLIST_SQL_.GLOBALLIST_VALUES.setdefault(keywoard, set()).add(str(group_id))
 
 
 def rm_from_list(keywoard, group_id):
-    with LEGENDGLOBALLIST_INSERTION_LOCK:
-        broadcast_group = SESSION.query(LegendGloballist).get((keywoard, str(group_id)))
+    with GUARDIANGLOBALLIST_INSERTION_LOCK:
+        broadcast_group = SESSION.query(GuardianGloballist).get((keywoard, str(group_id)))
         if broadcast_group:
             if str(group_id) in GLOBALLIST_SQL_.GLOBALLIST_VALUES.get(keywoard, set()):
                 GLOBALLIST_SQL_.GLOBALLIST_VALUES.get(keywoard, set()).remove(
@@ -63,16 +63,16 @@ def rm_from_list(keywoard, group_id):
 
 
 def is_in_list(keywoard, group_id):
-    with LEGENDGLOBALLIST_INSERTION_LOCK:
-        broadcast_group = SESSION.query(LegendGloballist).get((keywoard, str(group_id)))
+    with GUARDIANGLOBALLIST_INSERTION_LOCK:
+        broadcast_group = SESSION.query(GuardianGloballist).get((keywoard, str(group_id)))
         return bool(broadcast_group)
 
 
 def del_keyword_list(keywoard):
-    with LEGENDGLOBALLIST_INSERTION_LOCK:
+    with GUARDIANGLOBALLIST_INSERTION_LOCK:
         broadcast_group = (
-            SESSION.query(LegendGloballist.keywoard)
-            .filter(LegendGloballist.keywoard == keywoard)
+            SESSION.query(GuardianGloballist.keywoard)
+            .filter(GuardianGloballist.keywoard == keywoard)
             .delete()
         )
         GLOBALLIST_SQL_.GLOBALLIST_VALUES.pop(keywoard)
@@ -85,7 +85,7 @@ def get_collection_list(keywoard):
 
 def get_list_keywords():
     try:
-        chats = SESSION.query(LegendGloballist.keywoard).distinct().all()
+        chats = SESSION.query(GuardianGloballist.keywoard).distinct().all()
         return [i[0] for i in chats]
     finally:
         SESSION.close()
@@ -93,7 +93,7 @@ def get_list_keywords():
 
 def num_list():
     try:
-        return SESSION.query(LegendGloballist).count()
+        return SESSION.query(GuardianGloballist).count()
     finally:
         SESSION.close()
 
@@ -101,8 +101,8 @@ def num_list():
 def num_list_keyword(keywoard):
     try:
         return (
-            SESSION.query(LegendGloballist.keywoard)
-            .filter(LegendGloballist.keywoard == keywoard)
+            SESSION.query(GuardianGloballist.keywoard)
+            .filter(GuardianGloballist.keywoard == keywoard)
             .count()
         )
     finally:
@@ -111,18 +111,18 @@ def num_list_keyword(keywoard):
 
 def num_list_keywords():
     try:
-        return SESSION.query(func.count(distinct(LegendGloballist.keywoard))).scalar()
+        return SESSION.query(func.count(distinct(GuardianGloballist.keywoard))).scalar()
     finally:
         SESSION.close()
 
 
 def __load_chat_lists():
     try:
-        chats = SESSION.query(LegendGloballist.keywoard).distinct().all()
+        chats = SESSION.query(GuardianGloballist.keywoard).distinct().all()
         for (keywoard,) in chats:
             GLOBALLIST_SQL_.GLOBALLIST_VALUES[keywoard] = []
 
-        all_groups = SESSION.query(LegendGloballist).all()
+        all_groups = SESSION.query(GuardianGloballist).all()
         for x in all_groups:
             GLOBALLIST_SQL_.GLOBALLIST_VALUES[x.keywoard] += [x.group_id]
 
