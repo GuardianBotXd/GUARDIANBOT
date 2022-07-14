@@ -21,7 +21,7 @@ from ..sql_helper.globals import gvarstatus
 # =================== CONSTANT ===================
 bot = guardian
 LOGS = logging.getLogger(__name__)
-USERID = legend.uid if Config.OWNER_ID == 0 else Config.OWNER_ID
+USERID = guardian.uid if Config.OWNER_ID == 0 else Config.OWNER_ID
 ALIVE_NAME = Config.ALIVE_NAME
 AUTONAME = Config.AUTONAME
 DEFAULT_BIO = Config.DEFAULT_BIO
