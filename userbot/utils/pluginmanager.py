@@ -54,7 +54,7 @@ def load_module(shortname, plugin_path=None):
         mod.parse_pre = _format.parse_pre
         mod.eor = eor
         mod.logger = logging.getLogger(shortname)
-        mod.borg = legend
+        mod.borg = guardian
         spec.loader.exec_module(mod)
         # for imports
         sys.modules["userbot.plugins." + shortname] = mod
