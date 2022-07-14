@@ -7,7 +7,7 @@ from sqlalchemy import BigInteger, Column, Numeric, String, UnicodeText
 
 
 class Welcome(BASE):
-    __tablename__ = "legendwelcome"
+    __tablename__ = "guardianwelcome"
     chat_id = Column(String(14), primary_key=True)
     previous_welcome = Column(BigInteger)
     reply = Column(UnicodeText)
