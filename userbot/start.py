@@ -98,7 +98,6 @@ async def help(event):
             message=f"Hey, I am your {bot_id}'s assistant bot.\nI Am Here To Help U \n\nPowered By [GuardianBot](https://t.me/GuardianBot_Support)",
             buttons=[
                 [
-                    Button.url(" Community ", "https://t.me/GuardianCommunity"),
                     Button.url(" Support ", "https://t.me/GuardianBot_Support"),
                     Button.url(" Updates ", "https://t.me/GuardianBot_AI"),
                 ],
