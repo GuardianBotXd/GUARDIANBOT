@@ -5,8 +5,8 @@ from sqlalchemy import Column, String, UnicodeText, distinct, func
 from . import BASE, SESSION
 
 
-class LegendBroadcast(BASE):
-    __tablename__ = "legendbroadcast"
+class GuardianBroadcast(BASE):
+    __tablename__ = "guardianbroadcast"
     keywoard = Column(UnicodeText, primary_key=True)
     group_id = Column(String(14), primary_key=True, nullable=False)
 
@@ -15,22 +15,22 @@ class LegendBroadcast(BASE):
         self.group_id = str(group_id)
 
     def __repr__(self):
-        return "<Legend Broadcast channels '%s' for %s>" % (
+        return "<Guardian Broadcast channels '%s' for %s>" % (
             self.group_id,
             self.keywoard,
         )
 
     def __eq__(self, other):
         return bool(
-            isinstance(other, LegendBroadcast)
+            isinstance(other, GuardianBroadcast)
             and self.keywoard == other.keywoard
             and self.group_id == other.group_id
         )
 
 
-LegendBroadcast.__table__.create(checkfirst=True)
+GuardianBroadcast.__table__.create(checkfirst=True)
 
-LEGENDBROADCAST_INSERTION_LOCK = threading.RLock()
+GUARDIANBROADCAST_INSERTION_LOCK = threading.RLock()
 
 
 class BROADCAST_SQL:
@@ -42,8 +42,8 @@ BROADCAST_SQL_ = BROADCAST_SQL()
 
 
 def add_to_broadcastlist(keywoard, group_id):
-    with LEGENDBROADCAST_INSERTION_LOCK:
-        broadcast_group = LegendBroadcast(keywoard, str(group_id))
+    with GUARDIANBROADCAST_INSERTION_LOCK:
+        broadcast_group = GuardianBroadcast(keywoard, str(group_id))
 
         SESSION.merge(broadcast_group)
         SESSION.commit()
@@ -51,8 +51,8 @@ def add_to_broadcastlist(keywoard, group_id):
 
 
 def rm_from_broadcastlist(keywoard, group_id):
-    with LEGENDBROADCAST_INSERTION_LOCK:
-        broadcast_group = SESSION.query(LegendBroadcast).get((keywoard, str(group_id)))
+    with GUARDIANBROADCAST_INSERTION_LOCK:
+        broadcast_group = SESSION.query(GuardianBroadcast).get((keywoard, str(group_id)))
         if broadcast_group:
             if str(group_id) in BROADCAST_SQL_.BROADCAST_CHANNELS.get(keywoard, set()):
                 BROADCAST_SQL_.BROADCAST_CHANNELS.get(keywoard, set()).remove(
@@ -68,16 +68,16 @@ def rm_from_broadcastlist(keywoard, group_id):
 
 
 def is_in_broadcastlist(keywoard, group_id):
-    with LEGENDBROADCAST_INSERTION_LOCK:
-        broadcast_group = SESSION.query(LegendBroadcast).get((keywoard, str(group_id)))
+    with GUARDIANBROADCAST_INSERTION_LOCK:
+        broadcast_group = SESSION.query(GuardianBroadcast).get((keywoard, str(group_id)))
         return bool(broadcast_group)
 
 
 def del_keyword_broadcastlist(keywoard):
-    with LEGENDBROADCAST_INSERTION_LOCK:
+    with GUARDIANBROADCAST_INSERTION_LOCK:
         broadcast_group = (
-            SESSION.query(LegendBroadcast.keywoard)
-            .filter(LegendBroadcast.keywoard == keywoard)
+            SESSION.query(GuardianBroadcast.keywoard)
+            .filter(GuardianBroadcast.keywoard == keywoard)
             .delete()
         )
         BROADCAST_SQL_.BROADCAST_CHANNELS.pop(keywoard)
@@ -90,7 +90,7 @@ def get_chat_broadcastlist(keywoard):
 
 def get_broadcastlist_chats():
     try:
-        chats = SESSION.query(LegendBroadcast.keywoard).distinct().all()
+        chats = SESSION.query(GuardianBroadcast.keywoard).distinct().all()
         return [i[0] for i in chats]
     finally:
         SESSION.close()
@@ -98,7 +98,7 @@ def get_broadcastlist_chats():
 
 def num_broadcastlist():
     try:
-        return SESSION.query(LegendBroadcast).count()
+        return SESSION.query(GuardianBroadcast).count()
     finally:
         SESSION.close()
 
@@ -106,8 +106,8 @@ def num_broadcastlist():
 def num_broadcastlist_chat(keywoard):
     try:
         return (
-            SESSION.query(LegendBroadcast.keywoard)
-            .filter(LegendBroadcast.keywoard == keywoard)
+            SESSION.query(GuardianBroadcast.keywoard)
+            .filter(GuardianBroadcast.keywoard == keywoard)
             .count()
         )
     finally:
@@ -116,18 +116,18 @@ def num_broadcastlist_chat(keywoard):
 
 def num_broadcastlist_chats():
     try:
-        return SESSION.query(func.count(distinct(LegendBroadcast.keywoard))).scalar()
+        return SESSION.query(func.count(distinct(GuardianBroadcast.keywoard))).scalar()
     finally:
         SESSION.close()
 
 
 def __load_chat_broadcastlists():
     try:
-        chats = SESSION.query(LegendBroadcast.keywoard).distinct().all()
+        chats = SESSION.query(GuardianBroadcast.keywoard).distinct().all()
         for (keywoard,) in chats:
             BROADCAST_SQL_.BROADCAST_CHANNELS[keywoard] = []
 
-        all_groups = SESSION.query(LegendBroadcast).all()
+        all_groups = SESSION.query(GuardianBroadcast).all()
         for x in all_groups:
             BROADCAST_SQL_.BROADCAST_CHANNELS[x.keywoard] += [x.group_id]
 
