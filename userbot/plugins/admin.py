@@ -419,7 +419,7 @@ async def nothanos(event):
     guardianevent = await eor(event, "`Unbanning...`")
     try:
         await event.client(EditBannedRequest(event.chat_id, user.id, UNBAN_RIGHTS))
-        await legendevent.edit(
+        await guardianevent.edit(
             f"{_format.mentionuser(user.first_name ,user.id)} `is Unbanned Successfully. Granting another chance.`"
         )
         if BOTLOG:
