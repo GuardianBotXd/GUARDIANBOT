@@ -21,7 +21,7 @@ Guardian_GlobalCollection_Json.__table__.create(checkfirst=True)
 
 def get_collection(keywoard):
     try:
-        return SESSION.query(Legend_GlobalCollection_Json).get(keywoard)
+        return SESSION.query(Guardian_GlobalCollection_Json).get(keywoard)
     finally:
         SESSION.close()
 
