@@ -13,13 +13,13 @@ from .. import *
 from ..Config import Config
 from ..core.logger import logging
 from ..core.managers import eod, eor
-from ..core.session import legend
+from ..core.session import guardian
 from ..helpers import *
-from ..helpers.utils import _format, _legendtools, _legendutils, install_pip, reply_id
+from ..helpers.utils import _format, _guardiantools, _guardianutils, install_pip, reply_id
 from ..sql_helper.globals import gvarstatus
 
 # =================== CONSTANT ===================
-bot = legend
+bot = guardian
 LOGS = logging.getLogger(__name__)
 USERID = legend.uid if Config.OWNER_ID == 0 else Config.OWNER_ID
 ALIVE_NAME = Config.ALIVE_NAME
@@ -40,9 +40,9 @@ mention = f"[{Config.ALIVE_NAME}](tg://user?id={USERID})"
 hmention = f"<a href = tg://user?id={USERID}>{Config.ALIVE_NAME}</a>"
 
 
-LEGEND_USER = legend.me.first_name
-Legend_Boy = legend.uid
-legend_mention = f"[{LEGEND_USER}](tg://user?id={Legend_Boy})"
+GUARDIAN_USER = guardian.me.first_name
+DinoGuardian = guardian.uid
+Guardian_mention = f"[{GUARDIAN_USER}](tg://user?id={DinoGuardian})"
 
 
 # pic
@@ -60,18 +60,18 @@ ban_pic = "./userbot/resources/pics/ban.jpg"
 
 
 # channel
-my_channel = Config.YOUR_CHANNEL or "LegendBot_OP"
-my_group = Config.YOUR_GROUP or "LegendBot_AI"
+my_channel = Config.YOUR_CHANNEL or "GuardianBot_AI"
+my_group = Config.YOUR_GROUP or "GuardianBot_Support"
 if "@" in my_channel:
     my_channel = my_channel.replace("@", "")
 if "@" in my_group:
     my_group = my_group.replace("@", "")
 
 # My Channel
-chnl_link = "https://t.me/LegendBot_AI"
-Legend_channel = f"[Lêɠêɳ̃dẞø† ]({chnl_link})"
-grp_link = "https://t.me/LegendBot_OP"
-Legend_grp = f"[Lêɠêɳ̃dẞø† ]({grp_link})"
+chnl_link = "https://t.me/GuardianBot_AI"
+Guardian_channel = f"[𝐓𝐇𝐄 𝐆𝐔𝐀𝐑𝐃𝐈𝐀𝐍𝐁𝐎𝐓 ]({chnl_link})"
+grp_link = "https://t.me/GuardianBot_Support"
+Guardian_grp = f"[𝐓𝐇𝐄 𝐆𝐔𝐀𝐑𝐃𝐈𝐀𝐍𝐁𝐎𝐓 ]({grp_link})"
 
 
 PM_START = []
@@ -123,7 +123,7 @@ async def make_gif(event, reply, quality=None, fps=None):
     result_p = os.path.join("temp", "animation.gif")
     animation = lottie.parsers.tgs.parse_tgs(reply)
     with open(result_p, "wb") as result:
-        await _legendutils.run_sync(
+        await _guardianutils.run_sync(
             lottie.exporters.gif.export_gif, animation, result, quality, fps
         )
     return result_p
