@@ -89,10 +89,10 @@ def sudo_cmd(pattern=None, command=None, **args):  # sourcery no-metrics
                 SUDO_LIST.update({file_test: [cmd]})
         else:
             if len(Config.SUDO_HANDLER) == 2:
-                legendreg = f"^{Config.SUDO_HANDLER}"
+                guardianreg = f"^{Config.SUDO_HANDLER}"
                 reg = Config.SUDO_HANDLER[1]
             elif len(Config.SUDO_HANDLER) == 1:
-                legendreg = f"^\\{Config.SUDO_HANDLER}"
+                guardianreg = f"^\\{Config.SUDO_HANDLER}"
                 reg = Config.HANDLER
             args["pattern"] = re.compile(guardianreg + pattern)
             if command is not None:
