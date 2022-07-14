@@ -19,7 +19,7 @@ from telethon.tl.types import (
 )
 from telethon.utils import get_display_name
 
-from userbot import legend
+from userbot import guardian
 
 from ..core.data import _sudousers_list
 from ..core.logger import logging
@@ -93,7 +93,7 @@ from telethon.tl.types import ChannelParticipantsAdmins as admin
 from telethon.tl.types import ChannelParticipantsKicked as banned
 
 
-@legend.legend_cmd(
+@guardian.guardian_cmd(
     pattern="demoteall$",
     command=("demoteall", menu_category),
     info={
@@ -128,7 +128,7 @@ async def shj(e):
     await eor(e, f"Demoted {et} admins !")
 
 
-@legend.legend_cmd(
+@guardian.guardian_cmd(
     pattern="getbanned$",
     command=("getbanned", menu_category),
     info={
@@ -159,7 +159,7 @@ async def getbaed(event):
         await eod(event, "No Banned Users !!")
 
 
-@legend.legend_cmd(
+@guardian.guardian_cmd(
     pattern="gpic( -s| -d)$",
     command=("gpic", menu_category),
     info={
@@ -225,7 +225,7 @@ async def set_group_photo(event):  # sourcery no-metrics
         )
 
 
-@legend.legend_cmd(
+@guardian.guardian_cmd(
     pattern="promote(?:\s|$)([\s\S]*)",
     command=("promote", menu_category),
     info={
@@ -258,14 +258,14 @@ async def promote(event):
     )
     user, rank = await get_user_from_event(event)
     if not rank:
-        rank = "ℓєgєи∂"
+        rank = "ɢᴜᴀʀᴅɪᴀɴ"
     if not user:
         return
-    legendevent = await eor(event, "`Promoting...`")
+    guardianevent = await eor(event, "`Promoting...`")
     try:
         await event.client(EditAdminRequest(event.chat_id, user.id, new_rights, rank))
     except BadRequestError:
-        return await legendevent.edit(NO_PERM)
+        return await guardianevent.edit(NO_PERM)
     await event.client.send_file(
         event.chat_id,
         prmt_pic,
@@ -281,7 +281,7 @@ async def promote(event):
         )
 
 
-@legend.legend_cmd(
+@guardian.guardian_cmd(
     pattern="demote(?:\s|$)([\s\S]*)",
     command=("demote", menu_category),
     info={
@@ -307,7 +307,7 @@ async def demote(event):
     user, _ = await get_user_from_event(event)
     if not user:
         return
-    legendevent = await eor(event, "`Demoting...`")
+    guardianevent = await eor(event, "`Demoting...`")
     newrights = ChatAdminRights(
         add_admins=None,
         invite_users=None,
@@ -320,8 +320,8 @@ async def demote(event):
     try:
         await event.client(EditAdminRequest(event.chat_id, user.id, newrights, rank))
     except BadRequestError:
-        return await legendevent.edit(NO_PERM)
-    await legendevent.delete()
+        return await guardianevent.edit(NO_PERM)
+    await guardianevent.delete()
     await event.client.send_file(
         event.chat_id,
         dmt_pic,
@@ -329,7 +329,7 @@ async def demote(event):
     )
 
 
-@legend.legend_cmd(
+@guardian.guardian_cmd(
     pattern="ban(?:\s|$)([\s\S]*)",
     command=("ban", menu_category),
     info={
@@ -351,13 +351,13 @@ async def _ban_person(event):
         return
     if user.id == event.client.uid:
         return await eod(event, "__You cant ban yourself.__")
-    legendevent = await eor(event, "`Whacking the pest!`")
+    guardianevent = await eor(event, "`Whacking the pest!`")
     try:
         await event.client(EditBannedRequest(event.chat_id, user.id, BANNED_RIGHTS))
     except BadRequestError:
-        return await legendevent.edit(NO_PERM)
+        return await guardianevent.edit(NO_PERM)
     reply = await event.get_reply_message()
-    await legendevent.delete()
+    await guardianevent.delete()
     if reason:
         await event.client.send_file(
             event.chat_id,
@@ -391,12 +391,12 @@ async def _ban_person(event):
                 await reply.forward_to(BOTLOG_CHATID)
                 await reply.delete()
         except BadRequestError:
-            return await legendevent.edit(
+            return await guardianevent.edit(
                 "`I dont have message nuking rights! But still he is banned!`"
             )
 
 
-@legend.legend_cmd(
+@guardian.guardian_cmd(
     pattern="unban(?:\s|$)([\s\S]*)",
     command=("unban", menu_category),
     info={
@@ -416,7 +416,7 @@ async def nothanos(event):
     user, _ = await get_user_from_event(event)
     if not user:
         return
-    legendevent = await eor(event, "`Unbanning...`")
+    guardianevent = await eor(event, "`Unbanning...`")
     try:
         await event.client(EditBannedRequest(event.chat_id, user.id, UNBAN_RIGHTS))
         await legendevent.edit(
@@ -430,12 +430,12 @@ async def nothanos(event):
                 f"CHAT: {get_display_name(await event.get_chat())}(`{event.chat_id}`)",
             )
     except UserIdInvalidError:
-        await legendevent.edit("`Uh oh my unban logic broke!`")
+        await guardianevent.edit("`Uh oh my unban logic broke!`")
     except Exception as e:
-        await legendevent.edit(f"**Error :**\n`{e}`")
+        await guardianevent.edit(f"**Error :**\n`{e}`")
 
 
-@legend.legend_cmd(incoming=True)
+@guardian.guardian_cmd(incoming=True)
 async def watcher(event):
     if is_muted(event.sender_id, event.chat_id):
         try:
@@ -444,7 +444,7 @@ async def watcher(event):
             LOGS.info(str(e))
 
 
-@legend.legend_cmd(
+@guardian.guardian_cmd(
     pattern="mute(?:\s|$)([\s\S]*)",
     command=("mute", menu_category),
     info={
@@ -466,7 +466,7 @@ async def startmute(event):
             return await event.edit(
                 "`This user is already muted in this chat ~~lmfao sed rip~~`"
             )
-        if event.chat_id == legend.uid:
+        if event.chat_id == guardian.uid:
             return await eod(event, "`You cant mute yourself`")
         try:
             mute(event.chat_id, event.chat_id)
@@ -491,7 +491,7 @@ async def startmute(event):
         user, reason = await get_user_from_event(event)
         if not user:
             return
-        if user.id == legend.uid:
+        if user.id == guardian.uid:
             return await eor(event, "`Sorry, I can't mute myself`")
         if is_muted(user.id, event.chat_id):
             return await eor(
@@ -546,7 +546,7 @@ async def startmute(event):
             )
 
 
-@legend.legend_cmd(
+@guardian.guardian_cmd(
     pattern="unmute(?:\s|$)([\s\S]*)",
     command=("unmute", menu_category),
     info={
@@ -614,7 +614,7 @@ async def endmute(event):
             )
 
 
-@legend.legend_cmd(
+@guardian.guardian_cmd(
     pattern="kick(?:\s|$)([\s\S]*)",
     command=("kick", menu_category),
     info={
@@ -634,11 +634,11 @@ async def kick(event):
     user, reason = await get_user_from_event(event)
     if not user:
         return
-    legendevent = await eor(event, "`Kicking...`")
+    guardianevent = await eor(event, "`Kicking...`")
     try:
         await event.client.kick_participant(event.chat_id, user.id)
     except Exception as e:
-        return await legendevent.edit(f"{NO_PERM}\n{e}")
+        return await guardianevent.edit(f"{NO_PERM}\n{e}")
     if reason:
         await event.client.send_file(
             event.chat_id,
@@ -660,7 +660,7 @@ async def kick(event):
         )
 
 
-@legend.legend_cmd(
+@guardian.guardian_cmd(
     pattern="pin( loud|$)",
     command=("pin", menu_category),
     info={
@@ -701,7 +701,7 @@ async def pin(event):
         )
 
 
-@legend.legend_cmd(
+@guardian.guardian_cmd(
     pattern="unpin( all|$)",
     command=("unpin", menu_category),
     info={
@@ -752,7 +752,7 @@ async def unpin(event):
         )
 
 
-@legend.legend_cmd(
+@guardian.guardian_cmd(
     pattern="undlt( -u)?(?: |$)(\d*)?",
     command=("undlt", menu_category),
     info={
@@ -775,7 +775,7 @@ async def unpin(event):
 )
 async def _iundlt(event):  # sourcery no-metrics
     "To check recent deleted messages in group"
-    legendevent = await eor(event, "`Searching recent actions .....`")
+    guardianevent = await eor(event, "`Searching recent actions .....`")
     type = event.pattern_match.group(1)
     if event.pattern_match.group(2) != "":
         lim = int(event.pattern_match.group(2))
@@ -796,9 +796,9 @@ async def _iundlt(event):  # sourcery no-metrics
                 deleted_msg += f"\n\n✓ {_format.mentionuser(sweet.first_name ,sweet.id)} : __{msg.old.message}__"
             else:
                 deleted_msg += f"\n\n✓ {_format.mentionuser(sweet.first_name ,sweet.id)} :  __{_media_type}__"
-            await eor(legendevent, deleted_msg)
+            await eor(guardianevent, deleted_msg)
     else:
-        main_msg = await eor(legendevent, deleted_msg)
+        main_msg = await eor(guardianevent, deleted_msg)
         for msg in adminlog:
             sweet = await event.client.get_entity(msg.old.from_id)
             _media_type = media_type(msg.old)
