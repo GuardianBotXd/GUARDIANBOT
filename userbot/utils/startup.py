@@ -88,7 +88,7 @@ async def startupmessage():
             await guardian.check_testcases()
             message = await guardian.get_messages(msg_details[0], ids=msg_details[1])
             text = message.text + "\n\n**Ok Bot is Back and Alive.**"
-            await Guardian.edit_message(msg_details[0], msg_details[1], text)
+            await guardian.edit_message(msg_details[0], msg_details[1], text)
             if gvarstatus("restartupdate") is not None:
                 await guardian.send_message(
                     msg_details[0],
