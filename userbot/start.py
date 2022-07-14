@@ -160,7 +160,7 @@ async def res_ttart(event):
     if event.query.user_id == bot.uid:
         await event.answer("Restarting Please Wait 4 min... ", cache_time=0, alert=True)
         if BOTLOG:
-            guardian = await event.client.send_message(
+            GUARDIAN = await event.client.send_message(
                 BOTLOG_CHATID, "# RESTART \n" "Bot Restarted"
             )
         try:
